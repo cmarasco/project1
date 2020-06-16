@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Books
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-11">
+            <form class="form-row" action="{{ url_for('books') }}" method="post">
+                <div class="col-md-6 mb-3">
+                    <input class="form-control" name="booksearch" placeholder="Search by title, author, or ISBN">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search!</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <form class="form-row" action = "{{ url_for('logout') }}" method="post">
+                <button class="btn btn-link">Log Out</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h1>{{ book.title }} ({{ book.year }}) by {{ book.author }}</h1>
+        <p>Average Goodreads Rating:
+            {% for star in range(0, gr_rating_round) %}
+                &#11088
+            {% endfor %} {{ gr_rating }}
+            &emsp;&ensp; Number of Goodreads Reviews: {{ gr_reviews }}</p>
+        <p>IBSN: {{ book.ibsn }}</p>
+    </div>
+
+    <h5>Reviews:</h5>
+    <small id="message" class="form-text text-muted">{{ message }}</small>
+    {% for review in reviews %}
+        <div class="card">
+            <h5 class="card-header">
+                {% for star in range(0, review.stars) %}
+                    &#11088
+                {% endfor %}
+            </h5>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>{{ review.review }}</p>
+                    <footer class="blockquote-footer">{{ review.name }}</footer>
+                </blockquote>
+            </div>
+        </div>
+    {% endfor %}
+
+    <br>
+    <h5>New Review:</h5>
+    <form action="{{ url_for('book', book_id=book.id) }}" method="post">
+        <div class="form-group">
+            <p>Stars: </p>
+            <small class="form-text text-muted">1&emsp;&ensp; 2&emsp;&ensp; 3&emsp;&ensp; 4&emsp;&ensp; 5</small>
+            <input type="range" min="1" max="5" value="5" class="slider" name="newstars">
+        </div>
+        <div class="form-group">
+            <p>Review: </p><textarea name="newreview" rows="6" cols="100"></textarea>
+        </div>
+        <button class="btn btn-outline-success">Add Review</button>
+    </form>
+
+{% endblock %}

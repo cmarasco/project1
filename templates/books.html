@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Books
+{% endblock %}
+
+{% block body %}
+    <form class="form-row" action = "{{ url_for('logout') }}" method="post">
+        <div class="col-md-11 mb-3">
+            <h1>Search Books</h1>
+        </div>
+        <div class="col-md-1 mb-3">
+            <button class="btn btn-link">Log Out</button>
+        </div>
+    </form>
+
+    <form class="form-row" action="{{ url_for('books') }}" method="post">
+        <div class="col-md-6 mb-3">
+            <input class="form-control" name="booksearch" placeholder="Search by title, author, or ISBN">
+        </div>
+        <div class="col-md-3 mb-3">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search!</button>
+        </div>
+    </form>
+    <small id="message" class="form-text text-muted">{{ message }}</small>
+
+    {% for i in range(0, bookslen) %}
+        <form action = "{{ url_for('book', book_id=books[i].id) }}" method="post">
+            <button class="btn btn-link">{{ books[i].ibsn }}: {{ books[i].title }} ({{ books[i].year }}) by {{ books[i].author }} -
+                {% for star in range(0, stars[i]) %}
+                    &#11088
+                {% endfor %} {{ ratings[i] }}
+            </button>
+        </form>
+    {% endfor %}
+
+{% endblock %}

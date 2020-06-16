@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <style>
+            .outside {
+                padding: 20px;
+                padding-left: 100px;
+                padding-right: 100px;
+            }
+
+            .login {
+                padding: 20px;
+                padding-left: 200px;
+                padding-right: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="outside">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

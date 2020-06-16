@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Book Review Login
+{% endblock %}
+
+{% block body %}
+    <div class="login">
+        <div class="card">
+            <h1 class="card-header">Create a New Account</h1>
+
+            <div class="card-body">
+                <form action="{{ url_for('accountcreated') }}" method="post">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="createusername" placeholder="Username">
+                        <small id="userhelp" class="form-text text-muted">{{ user_message }}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="createpassword" placeholder="Password">
+                        <small id="pwhelp" class="form-text text-muted">{{ pw_message }}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary">Create Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
